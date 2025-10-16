@@ -42,6 +42,11 @@
    ```
    `DrawingSpinUp/assets_manifest.yaml` 파일을 프로젝트 환경에 맞게 수정하세요.
 
+## DrawingSpinUp 수동 준비 항목
+- **원본 파이프라인 코드**: 이 저장소에는 DrawingSpinUp의 실제 모델 코드가 포함되어 있지 않습니다. 사내 배포본을 받아 `DrawingSpinUp/` 디렉터리에 복사하세요. 구체적인 디렉터리 구성과 스크립트는 DrawingSpinUp 프로젝트의 README를 참고하세요.
+- **모델 가중치 및 외부 자산**: `DrawingSpinUp/assets_manifest.yaml`에 다운로드 경로와 체크섬을 정의해야 합니다. 정의된 자산은 `python scripts/download_drawing_spinup_assets.py` 실행 시 자동으로 내려받습니다.
+- **추가 Python 의존성**: PyTorch, PyTorch3D 등 DrawingSpinUp README에서 요구하는 패키지는 `server/requirements.txt`에 포함되어 있지 않으므로 별도로 설치해야 합니다.
+
 3. 서버 실행
    ```bash
    uvicorn server.app.main:app --host 0.0.0.0 --port 8080
@@ -49,7 +54,7 @@
 
 ## Docker 이미지 빌드
 ```bash
-docker build -t drawing-spinup-rigging:latest .
+docker build -t terarium-module-3d:latest .
 ```
 
 이미지는 CUDA 런타임을 기반으로 하며, 빌드 과정에서 자동으로 자산 다운로드 스크립트를 실행합니다. 여러 대의 RTX 2080 Ti가 설치된 환경이라면 `docker run` 실행 시 `--gpus all` 옵션을 사용하고, `SERVER_GPU_IDS` 환경 변수를 통해 사용 가능한 GPU 목록을 지정할 수 있습니다.
@@ -61,7 +66,7 @@ docker build -t drawing-spinup-rigging:latest .
 services:
   rigging:
     build: .
-    image: drawing-spinup-rigging:latest
+    image: terarium-module-3d:latest
     ports:
       - "8080:8080"
     environment:
