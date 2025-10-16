@@ -3,7 +3,7 @@ version: "3.9"
 services:
   rigging:
     build: .
-    image: drawing-spinup-rigging:latest
+    image: terarium-module-3d:latest
     restart: unless-stopped
     ports:
       - "8080:8080"

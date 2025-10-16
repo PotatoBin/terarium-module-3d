@@ -49,7 +49,7 @@
 
 ## Docker 이미지 빌드
 ```bash
-docker build -t drawing-spinup-rigging:latest .
+docker build -t terarium-module-3d:latest .
 ```
 
 이미지는 CUDA 런타임을 기반으로 하며, 빌드 과정에서 자동으로 자산 다운로드 스크립트를 실행합니다. 여러 대의 RTX 2080 Ti가 설치된 환경이라면 `docker run` 실행 시 `--gpus all` 옵션을 사용하고, `SERVER_GPU_IDS` 환경 변수를 통해 사용 가능한 GPU 목록을 지정할 수 있습니다.
@@ -61,7 +61,7 @@ docker build -t drawing-spinup-rigging:latest .
 services:
   rigging:
     build: .
-    image: drawing-spinup-rigging:latest
+    image: terarium-module-3d:latest
     ports:
       - "8080:8080"
     environment:
